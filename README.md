@@ -1,6 +1,6 @@
-# React Dialog
+# React DialTableog
 
-A simple headless dialog component for React.
+A simple table component for React.
 
 ## Development
 
