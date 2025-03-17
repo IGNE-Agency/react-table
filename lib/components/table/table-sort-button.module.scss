@@ -1,0 +1,17 @@
+.button {
+	transition: all 0.1s ease;
+	opacity: 0.5;
+	display: inline-block;
+}
+
+.sorted {
+	opacity: 1;
+}
+
+.desc {
+	transform: rotateX(0deg);
+}
+
+.asc {
+	transform: rotateX(180deg);
+}
