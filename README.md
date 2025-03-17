@@ -1,4 +1,4 @@
-# React DialTableog
+# React Table
 
 A simple table component for React.
 
