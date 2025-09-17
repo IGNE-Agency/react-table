@@ -91,7 +91,6 @@ const Table = <T extends {}>({
 								className={column.sticky ? style.sticky : undefined}
 							>
 								<Header
-									// @ts-ignore Prevent buttons from submitting forms
 									type={column.onSorted && "button"}
 									className={style.header}
 									onClick={
