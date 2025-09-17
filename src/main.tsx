@@ -51,6 +51,7 @@ const App = () => {
 						Title <TableSortButton state={state}>v</TableSortButton>
 					</>
 				),
+				defaultSorted: true,
 				render: (post) => post.title,
 				onSorted: (dir) => {
 					setParams((params) => {

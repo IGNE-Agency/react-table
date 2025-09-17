@@ -42,5 +42,5 @@ type TableProps<T> = Readonly<{
 /** An element that renders its `data` in a grid-like fashion, with native
  * HTML table elements underneath to keep it accessible.
  */
-declare const Table: <T extends {}>({ data, columns, makeKey, className, empty }: TableProps<T>) => import("react/jsx-runtime").JSX.Element;
+declare const Table: <T extends {}>({ data, columns, makeKey, className, empty, }: TableProps<T>) => import("react/jsx-runtime").JSX.Element;
 export default Table;
