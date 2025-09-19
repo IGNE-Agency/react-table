@@ -5,10 +5,7 @@ import '../../assets/table-sort-button.css';const n = "_button_158ku_1", r = "_s
   sorted: r,
   desc: d,
   asc: _
-}, i = ({
-  state: o,
-  children: s
-}) => /* @__PURE__ */ c(
+}, i = ({ state: o, children: s }) => /* @__PURE__ */ c(
   "div",
   {
     className: e([

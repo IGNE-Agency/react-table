@@ -1,18 +1,18 @@
 import { jsxs as b, jsx as n } from "react/jsx-runtime";
 import k from "classnames";
 import { useState as _ } from "react";
-import '../../assets/table.css';const u = "_table_1hpbm_1", x = "_sticky_1hpbm_39", D = "_header_1hpbm_45", a = {
-  table: u,
-  sticky: x,
+import '../../assets/table.css';const x = "_table_1hpbm_1", v = "_sticky_1hpbm_39", D = "_header_1hpbm_45", a = {
+  table: x,
+  sticky: v,
   header: D
-}, m = ({
-  data: i,
+}, j = ({
+  data: r,
   columns: t,
-  makeKey: r,
+  makeKey: d,
   className: o,
-  empty: h
+  empty: f
 }) => {
-  const [d, S] = N(t);
+  const [i, S] = N(t);
   return /* @__PURE__ */ b(
     "table",
     {
@@ -23,7 +23,7 @@ import '../../assets/table.css';const u = "_table_1hpbm_1", x = "_sticky_1hpbm_3
       },
       children: [
         /* @__PURE__ */ n("thead", { children: /* @__PURE__ */ n("tr", { children: t.map((e, c) => {
-          const s = c === (d == null ? void 0 : d.index), y = d == null ? void 0 : d.direction, p = e.onSorted ? "button" : "div";
+          const s = c === (i == null ? void 0 : i.index), y = i == null ? void 0 : i.direction, p = e.onSorted ? "button" : "div";
           return /* @__PURE__ */ n(
             "th",
             {
@@ -35,9 +35,9 @@ import '../../assets/table.css';const u = "_table_1hpbm_1", x = "_sticky_1hpbm_3
                   type: e.onSorted && "button",
                   className: a.header,
                   onClick: e.onSorted ? async () => {
-                    var f;
-                    const l = !s || (d == null ? void 0 : d.direction) !== "Desc" ? "Desc" : "Asc";
-                    await ((f = e.onSorted) == null ? void 0 : f.call(e, l)), S({
+                    var h;
+                    const l = !s || (i == null ? void 0 : i.direction) !== "Desc" ? "Desc" : "Asc";
+                    await ((h = e.onSorted) == null ? void 0 : h.call(e, l)), S({
                       index: c,
                       direction: l
                     });
@@ -52,31 +52,31 @@ import '../../assets/table.css';const u = "_table_1hpbm_1", x = "_sticky_1hpbm_3
             e.key
           );
         }) }) }),
-        /* @__PURE__ */ n("tbody", { children: i != null && i.length ? i.map((e, c) => /* @__PURE__ */ n("tr", { children: t.map((s) => /* @__PURE__ */ n(
+        /* @__PURE__ */ n("tbody", { children: r != null && r.length ? r.map((e, c) => /* @__PURE__ */ n("tr", { children: t.map((s) => /* @__PURE__ */ n(
           "td",
           {
             className: s.sticky ? a.sticky : void 0,
             children: s.render(e)
           },
           s.key
-        )) }, r(e, c))) : h })
+        )) }, d(e, c))) : f })
       ]
     }
   );
-}, N = (i) => _(() => {
-  const t = i.findIndex(
+}, N = (r) => _(() => {
+  const t = r.findIndex(
     (o) => o.defaultSorted
   );
   if (t === -1) return;
-  const r = i[t];
-  return r.onSorted ? {
-    direction: r.defaultSorted === !0 ? "Desc" : r.defaultSorted || "Desc",
+  const d = r[t];
+  return d.onSorted ? {
+    direction: d.defaultSorted === !0 ? "Desc" : d.defaultSorted || "Desc",
     index: t
   } : {
     index: t,
-    direction: typeof r.defaultSorted == "string" ? r.defaultSorted : void 0
+    direction: typeof d.defaultSorted == "string" ? d.defaultSorted : void 0
   };
 });
 export {
-  m as default
+  j as default
 };
