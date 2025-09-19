@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import style from "./table.module.scss";
 
 export type OrderDirection = "Asc" | "Desc";
@@ -17,9 +17,7 @@ export type TableColumn<T> = Readonly<{
 	 *
 	 * Can be any react node.
 	 */
-	title:
-		| ((state: ColumnState) => ReactNode)
-		| ReactNode;
+	title: ((state: ColumnState) => ReactNode) | ReactNode;
 
 	/** How to render the table cells.
 	 *
@@ -28,9 +26,7 @@ export type TableColumn<T> = Readonly<{
 	render: (cell: T) => ReactNode;
 
 	/** The function to call when a column title is clicked to start sorting. */
-	onSorted?: (
-		direction: OrderDirection
-	) => Promise<void> | void;
+	onSorted?: (direction: OrderDirection) => Promise<void> | void;
 
 	/** Whether this column is sorted by default.
 	 *
@@ -67,7 +63,7 @@ const Table = <T extends {}>({
 	columns,
 	makeKey,
 	className,
-	empty
+	empty,
 }: TableProps<T>) => {
 	const [sort, setSort] = useSort(columns);
 
@@ -75,56 +71,49 @@ const Table = <T extends {}>({
 		<table
 			cellSpacing="0"
 			className={classNames([style.table, className])}
-			style={{
-				// @ts-ignore Typescript doesnt like custom css vars
-				["--columns"]: columns.length
-			}}>
+			style={
+				{
+					"--columns": columns.length,
+				} as React.CSSProperties
+			}
+		>
 			<thead>
 				<tr>
 					{columns.map((column, columnIndex) => {
-						const isSortedColumn =
-							columnIndex === sort?.index;
+						const isSortedColumn = columnIndex === sort?.index;
 						const direction = sort?.direction;
-						const Header = column.onSorted
-							? "button"
-							: "div";
+						const Header = column.onSorted ? "button" : "div";
 
 						return (
 							<th
 								key={column.key}
 								scope="col"
-								className={
-									column.sticky
-										? style.sticky
-										: undefined
-								}>
+								className={column.sticky ? style.sticky : undefined}
+							>
 								<Header
-									// @ts-ignore Prevent buttons from submitting forms
 									type={column.onSorted && "button"}
 									className={style.header}
 									onClick={
 										column.onSorted
 											? async () => {
 													const newDirection =
-														!isSortedColumn ||
-														sort?.direction !== "Desc"
+														!isSortedColumn || sort?.direction !== "Desc"
 															? "Desc"
 															: "Asc";
-													await column.onSorted!(
-														newDirection
-													);
+													await column.onSorted?.(newDirection);
 													setSort({
 														index: columnIndex,
-														direction: newDirection
+														direction: newDirection,
 													});
-											  }
+												}
 											: undefined
-									}>
+									}
+								>
 									{typeof column.title === "function"
 										? column.title({
 												isSortedColumn,
-												direction
-										  })
+												direction,
+											})
 										: column.title}
 								</Header>
 							</th>
@@ -137,19 +126,16 @@ const Table = <T extends {}>({
 					? empty
 					: data.map((row, i) => (
 							<tr key={makeKey(row, i)}>
-								{columns.map(column => (
+								{columns.map((column) => (
 									<td
 										key={column.key}
-										className={
-											column.sticky
-												? style.sticky
-												: undefined
-										}>
+										className={column.sticky ? style.sticky : undefined}
+									>
 										{column.render(row)}
 									</td>
 								))}
 							</tr>
-					  ))}
+						))}
 			</tbody>
 		</table>
 	);
@@ -157,9 +143,7 @@ const Table = <T extends {}>({
 
 export default Table;
 
-const useSort = <T,>(
-	columns: TableProps<T>["columns"]
-) =>
+const useSort = <T,>(columns: TableProps<T>["columns"]) =>
 	useState<
 		| Readonly<{
 				index?: number;
@@ -168,30 +152,27 @@ const useSort = <T,>(
 		| undefined
 	>(() => {
 		const defaultSortedColumnIndex = columns.findIndex(
-			column => column.defaultSorted
+			(column) => column.defaultSorted,
 		);
 		if (defaultSortedColumnIndex === -1) return;
-		const defaultSortedColumn =
-			columns[defaultSortedColumnIndex]!;
+		const defaultSortedColumn = columns[defaultSortedColumnIndex];
 
 		if (defaultSortedColumn.onSorted) {
 			const direction =
 				defaultSortedColumn.defaultSorted === true
 					? "Desc"
-					: defaultSortedColumn.defaultSorted ||
-					  "Desc";
+					: defaultSortedColumn.defaultSorted || "Desc";
 			return {
 				direction,
-				index: defaultSortedColumnIndex
+				index: defaultSortedColumnIndex,
 			};
 		}
 
 		return {
 			index: defaultSortedColumnIndex,
 			direction:
-				typeof defaultSortedColumn.defaultSorted ===
-				"string"
+				typeof defaultSortedColumn.defaultSorted === "string"
 					? defaultSortedColumn.defaultSorted
-					: undefined
+					: undefined,
 		};
 	});
