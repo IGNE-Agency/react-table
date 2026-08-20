@@ -1,3 +1,6 @@
+> [!WARNING]
+> This project is no longer maintained. Please migrate to another package. [We use `@tanstack/react-table` for our tables at IGNE](https://tanstack.com/table/latest).
+
 # React Table
 
 A simple table component for React.
